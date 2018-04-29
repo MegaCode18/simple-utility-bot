@@ -1,0 +1,17 @@
+{
+  "name": "simple-utility-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:megacode18/simple-utility-bot",
+  "author": "Matt <mmszek3000@gmail.com>",
+  "license": "BSD-3-Clause",
+  "private": true,
+  "dependencies": {
+    "discord.js": "^11.3.2",
+    "discord.js-commando": "^0.9.0",
+    "sqlite": "^2.9.1"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^3.0.4"
+  }
+}
