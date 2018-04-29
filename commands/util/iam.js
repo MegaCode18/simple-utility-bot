@@ -36,6 +36,7 @@ module.exports = class IamCommand extends Command {
           message.delete()
           m.delete()
         }, 1e3)
+      })
     })
   }
 }

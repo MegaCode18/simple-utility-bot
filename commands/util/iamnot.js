@@ -29,12 +29,14 @@ module.exports = class IamCommand extends Command {
           message.delete()
           m.delete()
         }, 1e3)
+      })
     }).catch(() => {
       message.reply('Failed to remove the role').then(m => {
         setTimeout(() => {
           message.delete()
           m.delete()
         }, 1e3)
+      })
     })
   }
 }
