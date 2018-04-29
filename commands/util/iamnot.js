@@ -24,9 +24,17 @@ module.exports = class IamCommand extends Command {
       return message.reply('That role is not self-assignable!')
     }
     message.member.removeRole(selfAssignableRoles[role]).then(() => {
-      message.reply(`Removed the \`${message.guild.roles.get(selfAssignableRoles[role]).name}\` role from you`)
+      message.reply(`Removed the \`${message.guild.roles.get(selfAssignableRoles[role]).name}\` role from you`).then(m => {
+        setTimeout(() => {
+          message.delete()
+          m.delete()
+        }, 1e3)
     }).catch(() => {
-      message.reply('Failed to remove the role')
+      message.reply('Failed to remove the role').then(m => {
+        setTimeout(() => {
+          message.delete()
+          m.delete()
+        }, 1e3)
     })
   }
 }
