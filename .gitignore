@@ -60,3 +60,4 @@ typings/
 # config/data
 config.js
 settings.sqlite3
+bob.sqlite3
