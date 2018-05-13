@@ -184,7 +184,7 @@ module.exports = class RolesCommand extends Command {
         setTimeout(() => {
           message.delete()
           msg.delete()
-        }, 3e3)
+        }, 5e3)
       })
     }
   }
