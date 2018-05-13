@@ -9,8 +9,8 @@ module.exports = class RolesCommand extends Command {
       memberName: 'warn',
       description: 'Warns a user',
       details:
-        'If no arguments are provided, the command shows a list of warning types.' +
-        'The reason is an optional extended description for levels 1-9, and is a requirement for level 10.' +
+        'If no arguments are provided, the command shows a list of warning types. ' +
+        'The reason is an optional extended description for levels 1-9, and is a requirement for level 10. ' +
         'You can override points for levels 1-9, and the argument is a requirement for level 10. The points must be between 1 and 1,000.',
       guildOnly: true,
       args: [
