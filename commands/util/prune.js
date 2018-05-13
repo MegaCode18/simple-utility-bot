@@ -8,7 +8,7 @@ module.exports = class LockdownCommand extends Command {
       name: 'prune',
       group: 'util',
       memberName: 'prune',
-      description: 'Joins a self-assignable role',
+      description: 'Prunes messages',
       aliases: ['purge'],
       details: 'You must prune at least one, and no more than 100 messages',
       guildOnly: true,
