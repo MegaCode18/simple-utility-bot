@@ -135,12 +135,12 @@ module.exports = class RolesCommand extends Command {
         'You have been automatically banned for reaching 1000 warning points.'
       )
       db.run(
-        'UPDATE pointsbanned SET points = points + ? WHERE id = ?',
-        Math.floor(points / 1000) * 1000
+        'UPDATE pointsbanned SET points = ? WHERE id = ?',
+        Math.floor(currentPoints / 1000) * 1000
       )
       db.run(
-        'UPDATE pointsmuted SET points = points + ? WHERE id = ?',
-        Math.floor(points / 100) * 100
+        'UPDATE pointsmuted SET points = ? WHERE id = ?',
+        Math.floor(currentPoints / 100) * 100
       )
       member.ban()
       return messageSend(
@@ -148,12 +148,15 @@ module.exports = class RolesCommand extends Command {
         `✅ ***${user.tag} has been warned! Automatic ban applied.***`
       )
     } else if (currentPoints - mutePoints >= 100) {
-      const days = Math.floor(points / 100)
+      const days = Math.floor((currentPoints - mutePoints) / 100)
       user.send(
         `You have been automatically given a(n) ${days}-day mute for reaching ${days *
           100} warning points.`
       )
-      db.run('UPDATE pointsmuted SET points = points + ? WHERE id = ?', days * 100)
+      db.run('UPDATE pointsmuted SET points = ? WHERE id = ?', [
+        Math.floor(currentPoints / 100) * 100,
+        user.id
+      ])
       db.run('INSERT INTO mutes VALUES ($id, $start, $end)', {
         $id: user.id,
         $start: Date.now(),
@@ -168,7 +171,7 @@ module.exports = class RolesCommand extends Command {
           .first()
           .members.get(user.id)
           .removeRole('438035922924208138')
-        db.run('DELETE FROM mutes WHERE id = ?', user.id)
+        db.run('DELETE FROM mutes WHERE id = ?', mute.id)
       }, 1000 * 60 * 60 * 24 * days)
       return messageSend(
         message,
