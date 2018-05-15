@@ -168,7 +168,7 @@ module.exports = class RolesCommand extends Command {
           .first()
           .members.get(user.id)
           .removeRole('438035922924208138')
-        db.run('DELETE FROM mutes WHERE id = ?', mute.id)
+        db.run('DELETE FROM mutes WHERE id = ?', user.id)
       }, 1000 * 60 * 60 * 24 * days)
       return messageSend(
         message,
