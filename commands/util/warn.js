@@ -135,11 +135,11 @@ module.exports = class RolesCommand extends Command {
         'You have been automatically banned for reaching 1000 warning points.'
       )
       db.run(
-        'UPDATE pointsbanned SET points = ? WHERE id = ?',
+        'UPDATE pointsbanned SET points = points + ? WHERE id = ?',
         Math.floor(points / 1000) * 1000
       )
       db.run(
-        'UPDATE pointsmuted SET points = ? WHERE id = ?',
+        'UPDATE pointsmuted SET points = points + ? WHERE id = ?',
         Math.floor(points / 100) * 100
       )
       member.ban()
@@ -153,7 +153,7 @@ module.exports = class RolesCommand extends Command {
         `You have been automatically given a(n) ${days}-day mute for reaching ${days *
           100} warning points.`
       )
-      db.run('UPDATE pointsmuted SET points = ? WHERE id = ?', days * 100)
+      db.run('UPDATE pointsmuted SET points = points + ? WHERE id = ?', days * 100)
       db.run('INSERT INTO mutes VALUES ($id, $start, $end)', {
         $id: user.id,
         $start: Date.now(),
