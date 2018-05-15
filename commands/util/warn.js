@@ -134,14 +134,14 @@ module.exports = class RolesCommand extends Command {
       user.send(
         'You have been automatically banned for reaching 1000 warning points.'
       )
-      db.run(
-        'UPDATE pointsbanned SET points = ? WHERE id = ?',
-        Math.floor(currentPoints / 1000) * 1000
-      )
-      db.run(
-        'UPDATE pointsmuted SET points = ? WHERE id = ?',
-        Math.floor(currentPoints / 100) * 100
-      )
+      db.run('UPDATE pointsbanned SET points = ? WHERE id = ?', [
+        Math.floor(currentPoints / 1000) * 1000,
+        user.id
+      ])
+      db.run('UPDATE pointsmuted SET points = ? WHERE id = ?', [
+        Math.floor(currentPoints / 100) * 100,
+        user.id
+      ])
       member.ban()
       return messageSend(
         message,
