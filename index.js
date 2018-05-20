@@ -63,13 +63,30 @@ client.on('guildMemberAdd', async member => {
   if (!mute) return
   const timeUntil = mute.end - Date.now()
   if (timeUntil < 0) return
-  member
-    .addRole('438035922924208138')
+  member.addRole('438035922924208138')
   setTimeout(() => {
-    member
-      .removeRole('438035922924208138')
+    member.removeRole('438035922924208138')
     db.run('DELETE FROM mutes WHERE id = ?', member.user.id)
   }, timeUntil)
+})
+
+client.on('ready', () => {
+  const colors = [
+    '#FF0000',
+    '#E2571E',
+    '#FF7F00',
+    '#FFFF00',
+    '#00FF00',
+    '#96bf33',
+    '#0000FF',
+    '#4B0082',
+    '#8B00FF'
+  ]
+  let i = 0
+  setInterval(() => {
+    i = (i + 1) % colors.length
+    client.guilds.first().roles.find('name', 'Owner').setColor(colors[i])
+  })
 })
 
 client.login(require('./config').token)
