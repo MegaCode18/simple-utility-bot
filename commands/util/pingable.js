@@ -9,6 +9,7 @@ module.exports = class PingableCommand extends Command {
       group: 'util',
       memberName: 'pingable',
       description: 'Makes a role pingable',
+      aliases: ['p'],
       guildOnly: true,
       argsPromptLimit: 0,
       args: [
