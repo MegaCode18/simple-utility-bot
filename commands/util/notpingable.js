@@ -26,7 +26,7 @@ module.exports = class PingableCommand extends Command {
       )
     }
     role.setMentionable(false).then(role => {
-      return message.reply('Made the role not pingable!').then(() => setTimeout(() => {
+      return message.reply(`Made the ${role.name} not pingable!`).then(msg => setTimeout(() => {
         message.delete()
         msg.delete()
       }, 5e3))
