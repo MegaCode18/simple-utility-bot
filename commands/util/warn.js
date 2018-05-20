@@ -124,7 +124,7 @@ module.exports = class RolesCommand extends Command {
       'SELECT points FROM pointsbanned WHERE id = ?',
       user.id
     )
-    db.run('INSERT INTO warns VALUES (?, ?, ?)', [
+    await db.run('INSERT INTO warns VALUES (?, ?, ?)', [
       user.id,
       `${reasonMap[type]}${reason ? ` - ${reason}` : ''}`,
       points
@@ -134,11 +134,11 @@ module.exports = class RolesCommand extends Command {
       user.send(
         'You have been automatically banned for reaching 1000 warning points.'
       )
-      db.run('UPDATE pointsbanned SET points = ? WHERE id = ?', [
+      await db.run('UPDATE pointsbanned SET points = ? WHERE id = ?', [
         Math.floor(currentPoints / 1000) * 1000,
         user.id
       ])
-      db.run('UPDATE pointsmuted SET points = ? WHERE id = ?', [
+      await db.run('UPDATE pointsmuted SET points = ? WHERE id = ?', [
         Math.floor(currentPoints / 100) * 100,
         user.id
       ])
@@ -153,11 +153,11 @@ module.exports = class RolesCommand extends Command {
         `You have been automatically given a(n) ${days}-day mute for reaching ${days *
           100} warning points.`
       )
-      db.run('UPDATE pointsmuted SET points = ? WHERE id = ?', [
+      await db.run('UPDATE pointsmuted SET points = ? WHERE id = ?', [
         Math.floor(currentPoints / 100) * 100,
         user.id
       ])
-      db.run('INSERT INTO mutes VALUES ($id, $start, $end)', {
+      await db.run('INSERT INTO mutes VALUES ($id, $start, $end)', {
         $id: user.id,
         $start: Date.now(),
         $end: Date.now() + 1000 * 60 * 60 * 24 * days
