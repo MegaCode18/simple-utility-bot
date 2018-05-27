@@ -14,7 +14,7 @@ module.exports = class RainbowCommand extends Command {
       args: [
         {
           key: 'interval',
-          type: 'integer',
+          type: 'float',
           prompt: '',
           min: 0,
           default: 0
@@ -32,5 +32,6 @@ module.exports = class RainbowCommand extends Command {
       )
     }
     this.client.interval = interval
+    return message.reply(`Set the interval to ${interval} seconds`)
   }
 }
