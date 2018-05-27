@@ -71,6 +71,7 @@ client.on('guildMemberAdd', async member => {
 })
 
 client.on('ready', () => {
+  client.interval = 2e3
   const colors = [
     '#FF0000',
     '#E2571E',
@@ -86,7 +87,7 @@ client.on('ready', () => {
   setInterval(() => {
     i = (i + 1) % colors.length
     client.guilds.first().roles.find('name', 'Rainbow Color').setColor(colors[i])
-  }, 2e3)
+  }, (client.interval * 1000) || Infinity)
 })
 
 client.login(require('./config').token)
