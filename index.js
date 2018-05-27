@@ -1,6 +1,7 @@
 const Commando = require('discord.js-commando')
 const sqlite = require('sqlite')
 const path = require('path')
+const fs = require('fs')
 
 const client = new Commando.Client({
   unknownCommandResponse: false,
@@ -71,7 +72,7 @@ client.on('guildMemberAdd', async member => {
 })
 
 client.on('ready', () => {
-  client.interval = 2
+  client.interval = JSON.parse(fs.readFileSync('rainbow.json', { encoding: 'utf-8' })).interval
   const colors = [
     '#FF0000',
     '#E2571E',
@@ -84,10 +85,17 @@ client.on('ready', () => {
     '#8B00FF'
   ]
   let i = 0
-  setInterval(() => {
+  let interval = setInterval(() => {
     i = (i + 1) % colors.length
     client.guilds.first().roles.find('name', 'Rainbow Color').setColor(colors[i])
   }, (client.interval * 1000) || Infinity)
+  client.on('intervalChange', () => {
+    clearInterval(interval)
+    interval = setInterval(() => {
+      i = (i + 1) % colors.length
+      client.guilds.first().roles.find('name', 'Rainbow Color').setColor(colors[i])
+    }, (client.interval * 1000) || Infinity)
+  })
 })
 
 client.login(require('./config').token)
