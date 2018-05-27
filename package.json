@@ -13,5 +13,8 @@
   },
   "optionalDependencies": {
     "bufferutil": "^3.0.4"
+  },
+  "scripts": {
+    "spawner": "node spawner.js"
   }
 }
