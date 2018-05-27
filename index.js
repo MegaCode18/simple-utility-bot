@@ -71,7 +71,7 @@ client.on('guildMemberAdd', async member => {
 })
 
 client.on('ready', () => {
-  client.interval = 2e3
+  client.interval = 2
   const colors = [
     '#FF0000',
     '#E2571E',
