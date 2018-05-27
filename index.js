@@ -85,8 +85,8 @@ client.on('ready', () => {
   let i = 0
   setInterval(() => {
     i = (i + 1) % colors.length
-    client.guilds.first().roles.find('name', 'Owner Color').setColor(colors[i])
-  }, 5e2)
+    client.guilds.first().roles.find('name', 'Rainbow Color').setColor(colors[i])
+  }, 2e3)
 })
 
 client.login(require('./config').token)
