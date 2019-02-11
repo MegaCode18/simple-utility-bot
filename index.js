@@ -85,7 +85,7 @@ client.on('message', async message => {
         message.content
       }\` instead of \`o\``
     )
-  } else if (message.channel.id === '542864207641575472' && (await message.channel.messages.fetch({ limit: 2 })).last(2)[0].author.id === message.author.id) {
+  } else if (message.channel.id === '542864207641575472' && (await message.channel.messages.fetchMessage({ limit: 2 })).last(2)[0].author.id === message.author.id) {
     message.member.addRole(
       '544580387741892623',
       "Inability to follow the o chain's simple rules"
