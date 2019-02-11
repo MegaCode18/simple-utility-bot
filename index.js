@@ -85,6 +85,16 @@ client.on('message', async message => {
         message.content
       }\` instead of \`o\``
     )
+  } else if (message.channel.id === '542864207641575472' && message.channel.messages.last(2)[0].author.id === message.author.id) {
+    message.member.addRole(
+      '544580387741892623',
+      "Inability to follow the o chain's simple rules"
+    )
+    db.run('INSERT INTO chainbans VALUES (?)', message.author.id)
+    message.delete()
+    message.author.send(
+      'You have been banned from <#542864207641575472> for sending a message twice in a row.'
+    )
   }
 })
 
