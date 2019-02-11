@@ -39,7 +39,7 @@ client.on('ready', async () => {
         client.guilds
           .first()
           .members.get(mute.id)
-          .roles.remove('438035922924208138')
+          .removeRole('438035922924208138')
         db.run('DELETE FROM mutes WHERE id = ?', mute.id)
       } else {
         client.guilds
@@ -108,10 +108,7 @@ client.on('guildMemberAvailable', async member => {
     member.user.id
   )
   if (!mute) return
-  message.member.addRole(
-      '544580387741892623',
-      "Inability to follow the o chain's simple rules"
-    )
+  member.addRole('544580387741892623')
 })
 
 client.on('ready', () => {
