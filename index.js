@@ -71,9 +71,9 @@ client.on('ready', async () => {
   })
 })
 
-client.channels.get('542864207641575472').on('message', async message => {
+client.on('message', async message => {
   const db = await sqlite.open('bob.sqlite3')
-  if (message.content !== 'o') {
+  if (message.channel.id === '542864207641575472' && message.content !== 'o') {
     message.member.addRole(
       '544580387741892623',
       "Inability to follow the o chain's simple rules"
