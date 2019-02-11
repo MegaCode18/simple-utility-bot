@@ -88,7 +88,7 @@ client.on('message', async message => {
   }
 })
 
-client.on('guildMemberAdd', async member => {
+client.on('guildMemberAvailable', async member => {
   const db = await sqlite.open('bob.sqlite3')
   const mute = await db.get('SELECT * FROM mutes WHERE id = ?', member.user.id)
   if (!mute) return
@@ -101,14 +101,17 @@ client.on('guildMemberAdd', async member => {
   }, timeUntil)
 })
 
-client.on('guildMemberAdd', async member => {
+client.on('guildMemberAvailable', async member => {
   const db = await sqlite.open('bob.sqlite3')
   const mute = await db.get(
     'SELECT * FROM chainbans WHERE id = ?',
     member.user.id
   )
   if (!mute) return
-  member.addRole('544580387741892623')
+  message.member.addRole(
+      '544580387741892623',
+      "Inability to follow the o chain's simple rules"
+    )
 })
 
 client.on('ready', () => {
