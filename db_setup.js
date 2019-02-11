@@ -1,5 +1,5 @@
-const sqlite = require('sqlite')
-;(async () => {
+const sqlite = require('sqlite');
+(async () => {
   const db = await sqlite.open('bob.sqlite3')
 
   await db.run(`CREATE TABLE mutes (
@@ -27,5 +27,9 @@ const sqlite = require('sqlite')
   await db.run(`CREATE TABLE pointsbanned (
     id tinytext,
     points int
+  )`)
+
+  await db.run(`CREATE TABLE chainbans (
+    id tinytext
   )`)
 })()

@@ -58,6 +58,36 @@ client.on('ready', async () => {
   })
 })
 
+client.on('ready', async () => {
+  const db = await sqlite.open('bob.sqlite3')
+  const mutes = await db.all('SELECT * FROM chainbans')
+  mutes.forEach(mute => {
+    try {
+      client.guilds
+        .first()
+        .members.get(mute.id)
+        .addRole('544580387741892623')
+    } catch (e) {}
+  })
+})
+
+client.channels.get('542864207641575472').on('message', async message => {
+  const db = await sqlite.open('bob.sqlite3')
+  if (message.content !== 'o') {
+    message.member.addRole(
+      '544580387741892623',
+      "Inability to follow the o chain's simple rules"
+    )
+    db.run('INSERT INTO chainbans VALUES (?)', message.author.id)
+    message.delete()
+    message.author.send(
+      `You have been banned from <#542864207641575472> for sending \`${
+        message.content
+      }\` instead of \`o\``
+    )
+  }
+})
+
 client.on('guildMemberAdd', async member => {
   const db = await sqlite.open('bob.sqlite3')
   const mute = await db.get('SELECT * FROM mutes WHERE id = ?', member.user.id)
@@ -71,8 +101,20 @@ client.on('guildMemberAdd', async member => {
   }, timeUntil)
 })
 
+client.on('guildMemberAdd', async member => {
+  const db = await sqlite.open('bob.sqlite3')
+  const mute = await db.get(
+    'SELECT * FROM chainbans WHERE id = ?',
+    member.user.id
+  )
+  if (!mute) return
+  member.addRole('544580387741892623')
+})
+
 client.on('ready', () => {
-  client.interval = JSON.parse(fs.readFileSync('rainbow.json', { encoding: 'utf-8' })).interval
+  client.interval = JSON.parse(
+    fs.readFileSync('rainbow.json', { encoding: 'utf-8' })
+  ).interval
   const colors = [
     '#FF0000',
     '#E2571E',
@@ -87,14 +129,20 @@ client.on('ready', () => {
   let i = 0
   let interval = setInterval(() => {
     i = (i + 1) % colors.length
-    client.guilds.first().roles.find('name', 'Rainbow Color').setColor(colors[i])
-  }, (client.interval * 1000) || Infinity)
+    client.guilds
+      .first()
+      .roles.find('name', 'Rainbow Color')
+      .setColor(colors[i])
+  }, client.interval * 1000 || Infinity)
   client.on('intervalChange', () => {
     clearInterval(interval)
     interval = setInterval(() => {
       i = (i + 1) % colors.length
-      client.guilds.first().roles.find('name', 'Rainbow Color').setColor(colors[i])
-    }, (client.interval * 1000) || Infinity)
+      client.guilds
+        .first()
+        .roles.find('name', 'Rainbow Color')
+        .setColor(colors[i])
+    }, client.interval * 1000 || Infinity)
   })
 })
 
