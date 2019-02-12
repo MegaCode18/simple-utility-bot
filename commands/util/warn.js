@@ -64,7 +64,9 @@ module.exports = class RolesCommand extends Command {
 7 - Spamming Non-Allowed Commands in General (80 points)
 8 - Pinging Mods / Admins / Developers (50 points)
 9 - Spam Pinging Mods / Admins / Developers (200 points)
-10 - Other (Custom)`)
+10 - Other (Custom)
+
+Command Format: \`;warn <user> <reason> [explanation] [points]\``)
     }
     if (!type) {
       return message.channel.send('Please specify a type!')
