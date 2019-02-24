@@ -98,7 +98,7 @@ client.on('message', async message => {
   }
 })
 
-client.on('guildMemberAvailable', async member => {
+client.on('guildMemberAdd', async member => {
   const db = await sqlite.open('bob.sqlite3')
   const mute = await db.get('SELECT * FROM mutes WHERE id = ?', member.user.id)
   if (!mute) return
@@ -111,7 +111,7 @@ client.on('guildMemberAvailable', async member => {
   }, timeUntil)
 })
 
-client.on('guildMemberAvailable', async member => {
+client.on('guildMemberAdd', async member => {
   const db = await sqlite.open('bob.sqlite3')
   const mute = await db.get(
     'SELECT * FROM chainbans WHERE id = ?',
