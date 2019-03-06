@@ -121,7 +121,7 @@ client.on('guildMemberAdd', async member => {
   member.addRole('544580387741892623')
 })
 
-client.on('ready', () => {
+/*client.on('ready', () => {
   client.interval = JSON.parse(
     fs.readFileSync('rainbow.json', { encoding: 'utf-8' })
   ).interval
@@ -154,6 +154,6 @@ client.on('ready', () => {
         .setColor(colors[i])
     }, client.interval * 1000 || Infinity)
   })
-})
+})*/
 
 client.login(require('./config').token)
