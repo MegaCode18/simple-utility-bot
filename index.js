@@ -122,7 +122,7 @@ client.on('guildMemberAdd', async member => {
 })
 
 client.on('message', message => {
-  if (/(^|\s)([\w\d])w\2($|\s)/.test(message.content)) {
+  if (/([\w\d])w\2/.test(message.content)) {
     message.delete()
   }
 })
