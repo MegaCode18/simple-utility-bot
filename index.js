@@ -121,39 +121,10 @@ client.on('guildMemberAdd', async member => {
   member.addRole('544580387741892623')
 })
 
-/*client.on('ready', () => {
-  client.interval = JSON.parse(
-    fs.readFileSync('rainbow.json', { encoding: 'utf-8' })
-  ).interval
-  const colors = [
-    '#FF0000',
-    '#E2571E',
-    '#FF7F00',
-    '#FFFF00',
-    '#00FF00',
-    '#96bf33',
-    '#0000FF',
-    '#4B0082',
-    '#8B00FF'
-  ]
-  let i = 0
-  let interval = setInterval(() => {
-    i = (i + 1) % colors.length
-    client.guilds
-      .first()
-      .roles.find('name', 'Rainbow Color')
-      .setColor(colors[i])
-  }, client.interval * 1000 || Infinity)
-  client.on('intervalChange', () => {
-    clearInterval(interval)
-    interval = setInterval(() => {
-      i = (i + 1) % colors.length
-      client.guilds
-        .first()
-        .roles.find('name', 'Rainbow Color')
-        .setColor(colors[i])
-    }, client.interval * 1000 || Infinity)
-  })
-})*/
+client.on('message', message => {
+  if (/(^|\s)([\w\d])w\2($|\s)/.test(message.content)) {
+    message.delete()
+  }
+})
 
 client.login(require('./config').token)
