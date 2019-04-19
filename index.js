@@ -121,10 +121,10 @@ client.on('guildMemberAdd', async member => {
   member.addRole('544580387741892623')
 })
 
-client.on('message', message => {
-  if (/([\w\d])w\1/.test(message.content)) {
-    message.delete()
-  }
-})
+// client.on('message', message => {
+//   if (/([\w\d])w\1/.test(message.content)) {
+//     message.delete()
+//   }
+// })
 
 client.login(require('./config').token)
