@@ -163,8 +163,9 @@ Command Format: \`;warn <user> <reason> [explanation] [points]\``)
       )
     } else if (currentPoints - mutePoints >= 100) {
       const days = Math.floor((currentPoints - mutePoints) / 100)
+      const time = muteTime(currentPoints - points, currentPoints - mutePoints)
       user.send(
-        `You have been automatically given a(n) ${days}-day mute for reaching ${days *
+        `You have been automatically given a(n) ${muteText(time)} mute for reaching ${days *
           100} warning points.`
       )
       await db.run('UPDATE pointsmuted SET points = ? WHERE id = ?', [
@@ -174,7 +175,7 @@ Command Format: \`;warn <user> <reason> [explanation] [points]\``)
       await db.run('INSERT INTO mutes VALUES ($id, $start, $end)', {
         $id: user.id,
         $start: Date.now(),
-        $end: Date.now() + 1000 * 60 * 60 * 24 * days
+        $end: Date.now() + time
       })
       this.client.guilds
         .first()
@@ -191,7 +192,7 @@ Command Format: \`;warn <user> <reason> [explanation] [points]\``)
         message,
         `✅ ***${
           user.tag
-        } has been warned! Automatic ${days}-day mute applied.***`
+        } has been warned! Automatic ${muteText(time)} mute applied.***`
       )
     } else {
       return messageSend(message, `✅ ***${user.tag} has been warned!***`)
@@ -203,6 +204,34 @@ Command Format: \`;warn <user> <reason> [explanation] [points]\``)
           msg.delete()
         }, 5e3)
       })
+    }
+    function muteTime (points, addPoints) {
+      if (addPoints < 100) return 0
+      
+      if (points < 100) {
+        return 0.25 * 86400000 + muteTime(points + 100, addPoints - 100)
+      } else if (points < 200) {
+        return 0.5 * 86400000 + muteTime(points + 100, addPoints - 100)
+      } else if (points < 300) {
+        return 1 * 86400000 + muteTime(points + 100, addPoints - 100)
+      } else if (points < 400) {
+        return 3 * 86400000 + muteTime(points + 100, addPoints - 100)
+      } else if (points < 500) {
+        return 7 * 86400000 + muteTime(points + 100, addPoints - 100)
+      } else if (points < 600) {
+        return 14 * 86400000 + muteTime(points + 100, addPoints - 100)
+      } else {
+        return 21 * 86400000 + muteTime(points + 100, addPoints - 100)
+      }
+    }
+    function muteText (time) {
+      if (time % 604800000 === 0) {
+        return `${time / 604800000}-week`
+      } else if (time % 86400000 === 0) {
+        return `${time / 86400000}-day`
+      } else {
+        return `${time / 3600000}-hour`
+      }
     }
   }
 }
