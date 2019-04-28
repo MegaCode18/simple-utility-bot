@@ -31,7 +31,12 @@ module.exports = class BanCommand extends Command {
 
       return message.channel.send(embed)
     } else {
-      return message.client.registry.get('warn').run({
+      const cmd = message.client.registry.commands.get('warn')
+      
+      return cmd.run.call(
+        cmd,
+        message,
+        {
         user,
         type: 13
       })
