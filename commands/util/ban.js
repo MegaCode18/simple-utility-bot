@@ -27,7 +27,7 @@ module.exports = class BanCommand extends Command {
     if (!user) {
       const embed = new RichEmbed().setTitle(';ban command').setDescription('Usage: `;ban <user>`')
 
-      embed.addField('Examples', `;ban @${(await message.channel.fetchMessages({ before: message.id, limit: 1 })).first().author.id}`)
+      embed.addField('Examples', `;ban @${(await message.channel.fetchMessages({ before: message.id, limit: 1 })).first().author.tag}`)
 
       return message.channel.send(embed)
     } else {
