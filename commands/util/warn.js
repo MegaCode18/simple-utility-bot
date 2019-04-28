@@ -2,7 +2,7 @@ const { Command } = require('discord.js-commando')
 const sqlite = require('sqlite')
 
 module.exports = class RolesCommand extends Command {
-  constructor(client) {
+  constructor (client) {
     super(client, {
       name: 'warn',
       group: 'util',
@@ -47,7 +47,7 @@ module.exports = class RolesCommand extends Command {
     })
   }
 
-  async run(message, { user, type, reason, points }) {
+  async run (message, { user, type, reason, points }) {
     if (!message.member.permissionsIn(message.channel).has('MANAGE_GUILD')) {
       return message.reply(
         'This command requires the `Manage Server` permission'
@@ -65,6 +65,10 @@ module.exports = class RolesCommand extends Command {
 8 - Pinging Mods / Admins / Developers (50 points)
 9 - Spam Pinging Mods / Admins / Developers (200 points)
 10 - Other (Custom)
+11 - Banned from the bot (1000 points)
+12 - Spamming (150 points)
+13 - Raiding/Excessive Spamming (1000 points)
+14 - Impersonating Staff (200 points)
 
 Command Format: \`;warn <user> <reason> [explanation] [points]\``)
     }
@@ -86,7 +90,11 @@ Command Format: \`;warn <user> <reason> [explanation] [points]\``)
       7: 'Spamming Non-Allowed Commands in General',
       8: 'Pinging Mods / Admins / Developers',
       9: 'Spam Pinging Mods / Admins / Developers',
-      10: 'Other'
+      10: 'Other',
+      11: 'Breaking Bot Rules',
+      12: 'Spamming',
+      13: 'Raiding/Excessive Spamming',
+      14: 'Impersonating Staff'
     }
     const pointMap = {
       1: 20,
@@ -97,7 +105,11 @@ Command Format: \`;warn <user> <reason> [explanation] [points]\``)
       6: 20,
       7: 80,
       8: 50,
-      9: 200
+      9: 200,
+      11: 1000,
+      12: 150,
+      13: 1000,
+      14: 200
     }
     if (!points) points = pointMap[type]
     user.send(
@@ -184,7 +196,7 @@ Command Format: \`;warn <user> <reason> [explanation] [points]\``)
     } else {
       return messageSend(message, `✅ ***${user.tag} has been warned!***`)
     }
-    function messageSend(message, text) {
+    function messageSend (message, text) {
       return message.channel.send(text).then(msg => {
         setTimeout(() => {
           message.delete()
