@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { RichEmbed } = require('discord.js')
 const { Command } = require('discord.js-commando')
 
 module.exports = class BanCommand extends Command {
@@ -25,7 +25,7 @@ module.exports = class BanCommand extends Command {
 
   async run (message, { user }) {
     if (!user) {
-      const embed = new MessageEmbed().setTitle(';ban command').setDescription('Usage: `;ban <user>`')
+      const embed = new RichEmbed().setTitle(';ban command').setDescription('Usage: `;ban <user>`')
 
       embed.addField('Examples', `;ban @${(await message.channel.fetchMessages({ before: message.id, limit: 1 })).author.id}`)
 
