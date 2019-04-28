@@ -23,7 +23,7 @@ module.exports = class RolesCommand extends Command {
         {
           key: 'type',
           type: 'integer',
-          max: 10,
+          max: 14,
           min: 1,
           default: 0,
           prompt: ''
