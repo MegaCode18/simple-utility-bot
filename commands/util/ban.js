@@ -42,9 +42,10 @@ module.exports = class BanCommand extends Command {
         cmd,
         message,
         {
-        user,
-        type: 13
-      })
+          user,
+          type: 13
+        }
+      )
     }
   }
 }
