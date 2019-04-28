@@ -24,6 +24,11 @@ module.exports = class BanCommand extends Command {
   }
 
   async run (message, { user }) {
+    if (!message.member.permissionsIn(message.channel).has('MANAGE_GUILD')) {
+      return message.reply(
+        'This command requires the `Manage Server` permission'
+      )
+    }
     if (!user) {
       const embed = new RichEmbed().setTitle(';ban command').setDescription('Usage: `;ban <user>`')
 
