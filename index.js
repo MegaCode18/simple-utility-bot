@@ -95,6 +95,15 @@ client.on('message', async message => {
     message.author.send(
       'You have been banned from <#542864207641575472> for sending a message twice in a row.'
     )
+  } else if (await db.get('SELECT * FROM chainbans WHERE id = ?', message.author.id)) {
+    message.member.addRole(
+      '544580387741892623',
+      'Cheater'
+    )    
+    message.delete()
+    message.author.send(
+      'You have been banned from <#542864207641575472> because you are cheating.'
+    )
   }
 })
 
