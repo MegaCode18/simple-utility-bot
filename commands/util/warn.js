@@ -10,8 +10,8 @@ module.exports = class RolesCommand extends Command {
       description: 'Warns a user',
       details:
         'If no arguments are provided, the command shows a list of warning types. ' +
-        'The reason is an optional extended description for levels 1-9, and is a requirement for level 10. ' +
-        'You can override points for levels 1-9, and the argument is a requirement for level 10. The points must be between 1 and 1,000.',
+        'The reason is an optional extended description and is a requirement for level 10. ' +
+        'You can override points and the argument is a requirement for level 10. The points must be between 1 and 1,000.',
       guildOnly: true,
       args: [
         {
@@ -60,10 +60,10 @@ module.exports = class RolesCommand extends Command {
 3 - Major Disrespect (100 points)
 4 - Server Advertising (200 points)
 5 - Alternate Account Abuse (1000 points)
-6 - Using Non-Allowed Commands in General (20 points)
-7 - Spamming Non-Allowed Commands in General (80 points)
-8 - Pinging Mods / Admins / Developers (50 points)
-9 - Spam Pinging Mods / Admins / Developers (200 points)
+6 - Unnecessary Command Usage (20 points)
+7 - Excessive Unnecesarry Command Usage (80 points)
+8 - Pinging Staff (50 points)
+9 - Excessively Pinging Staff (200 points)
 10 - Other (Custom)
 11 - Banned from the bot (1000 points)
 12 - Spamming (150 points)
