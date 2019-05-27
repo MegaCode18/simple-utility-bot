@@ -58,7 +58,7 @@ module.exports = class RolesCommand extends Command {
       return message.channel.send(`1 - Minor Disrespect (20 points)
 2 - Disrespect (60 points) 
 3 - Major Disrespect (100 points)
-4 - Server Advertising (200 points)
+4 - Advertising (200 points)
 5 - Alternate Account Abuse (1000 points)
 6 - Unnecessary Command Usage (20 points)
 7 - Excessive Unnecesarry Command Usage (80 points)
@@ -156,7 +156,7 @@ Command Format: \`;warn <user> <reason> [explanation] [points]\``)
         Math.floor(currentPoints / 100) * 100,
         user.id
       ])
-      member.ban()
+      member.ban({ days: 1 })
       return messageSend(
         message,
         `✅ ***${user.tag} has been warned! Automatic ban applied.***`
